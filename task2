@@ -1,1 +1,67 @@
 task 2
+Certainly, let's work on adding the banner component and the exhibit component to your Sextant dashboard:
+
+Step 1: Create the Banner Component:
+
+In the src/components directory (create it if not already present), create a new file named Banner.js.
+
+Define the Banner component using React JSX. This component will display the site's title. You can use the h1 tag for a large title.
+
+In Banner.js, you might have something like this:
+import React from 'react';
+
+function Banner() {
+  return (
+    <div className="banner">
+      <h1>Sextant Dashboard</h1>
+    </div>
+  );
+}
+
+export default Banner;
+Step 2: Create the Exhibit Component:
+
+In the same src/components directory, create another file named Exhibit.js.
+
+Define the Exhibit component using JSX. This component will be a container that wraps other components to logically separate different data points. You can use a div element with appropriate styling.
+
+In Exhibit.js, you might have something like this:
+import React from 'react';
+
+function Exhibit({ title, children }) {
+  return (
+    <div className="exhibit">
+      <h2>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+export default Exhibit;
+Step 3: Usage in App.js:
+
+Open the src/App.js file.
+
+Import the Banner and Exhibit components at the top of the file:
+import React from 'react';
+import Banner from './components/Banner';
+import Exhibit from './components/Exhibit';
+Replace the existing content within the return statement with the following code:
+function App() {
+  return (
+    <div className="App">
+      <Banner />
+      <Exhibit title="Public IP">
+        {/* Add IP related components here */}
+      </Exhibit>
+      <Exhibit title="Latency Metrics">
+        {/* Add latency metric components here */}
+      </Exhibit>
+    </div>
+  );
+}
+Remember to customize the styles and layout according to your design preferences.
+
+After completing these steps, you should have a Banner component at the top of your page and Exhibit components to logically separate different data points. Feel free to add more content and customize the components as needed.
+
+Don't forget to test your changes using npm start and ensure that everything is rendering as expected. Once you're satisfied, you can commit and push your changes to your GitHub repository.
