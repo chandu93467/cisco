@@ -1,0 +1,92 @@
+Sure, I'd be happy to help you with the code! Here's an outline of how you can create the React component to display packet latency from Pylon using WebSockets:
+
+Install Dependencies:
+First, make sure you have the required WebSocket library installed. You can install it using the following command:
+npm install websocket
+Create LatencyComponent:
+Create a new React component named LatencyComponent.js. This component will handle the WebSocket connection, receive latency data, and display it.
+
+Connect to WebSocket:
+Inside the LatencyComponent component, import the WebSocket module and establish a connection to Pylon's WebSocket endpoint:
+import React, { Component } from 'react';
+import WebSocket from 'websocket';
+
+class LatencyComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latency: null
+    };
+  }
+
+  componentDidMount() {
+    const ws = new WebSocket.client();
+    ws.connect('ws://localhost:55455');
+
+    ws.on('connect', connection => {
+      connection.on('message', message => {
+        // Handle received message and calculate latency
+        const packetTimestamp = parseInt(message.utf8Data);
+        const currentTimestamp = Date.now();
+        const latency = currentTimestamp - packetTimestamp;
+
+        this.setState({ latency });
+      });
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Packet Latency</h2>
+        {this.state.latency !== null && (
+          <p>Latency: {this.state.latency} ms</p>
+        )}
+      </div>
+    );
+  }
+}
+
+export default LatencyComponent;
+Integrate with Container Component:
+Similar to the previous tasks, wrap the LatencyComponent inside a container component to provide a cohesive layout:
+import React, { Component } from 'react';
+import LatencyComponent from './LatencyComponent';
+
+class LatencyContainer extends Component {
+  render() {
+    return (
+      <div className="exhibit">
+        <LatencyComponent />
+      </div>
+    );
+  }
+}
+
+export default LatencyContainer;
+Use LatencyContainer:
+Finally, integrate the LatencyContainer component into your main App component:
+import React, { Component } from 'react';
+import './App.css';
+import BannerComponent from './BannerComponent';
+import LatencyContainer from './LatencyContainer';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <BannerComponent title="Sextant" />
+        <div className="dashboard">
+          <LatencyContainer />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+Remember to style the components to match your desired aesthetics and layout.
+
+Once you've implemented the LatencyComponent and integrated it into your app, you'll be able to display and update the network latency metric in real-time.
+
+Don't forget to commit and push your changes to your GitHub repository after you've completed this task!
