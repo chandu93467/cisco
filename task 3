@@ -1,0 +1,115 @@
+Certainly, let's proceed with creating a component that collects and displays the user's public IP addresses using the ipify API. Here's how you can do it:
+
+Step 1: Create the IPDisplay Component:
+
+In the src/components directory, create a new file named IPDisplay.js.
+
+Define the IPDisplay component using React JSX. This component will make an HTTP request to the ipify API and display the user's public IP address based on the specified IP version (IPv4 or IPv6).
+
+In IPDisplay.js, you might have something like this:
+import React, { useState, useEffect } from 'react';
+
+function IPDisplay({ ipVersion }) {
+  const [publicIP, setPublicIP] = useState('');
+
+  useEffect(() => {
+    const apiEndpoint = ipVersion === 'IPv4' ? 'ipv4' : 'ipv6';
+    fetch(`https://api.ipify.org?format=json&${apiEndpoint}=true`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPublicIP(data.ip);
+      });
+  }, [ipVersion]);
+
+  return (
+    <div className="ip-display">
+      <h3>{ipVersion} Address:</h3>
+      <p>{publicIP}</p>
+    </div>
+  );
+}
+
+export default IPDisplay;
+Step 2: Usage in App.js:
+
+Open the src/App.js file and follow these steps:
+
+Import the IPDisplay component at the top of the file:
+import IPDisplay from './components/IPDisplay';
+Inside the Exhibit components for "Public IP" and "Public IPv6," add instances of the IPDisplay component with the appropriate ipVersion prop:
+<Exhibit title="Public IP">
+  <IPDisplay ipVersion="IPv4" />
+</Exhibit>
+
+<Exhibit title="Public IPv6">
+  <IPDisplay ipVersion="IPv6" />
+</Exhibit>
+
+Certainly, let's proceed with creating a component that collects and displays the user's public IP addresses using the ipify API. Here's how you can do it:
+
+Step 1: Create the IPDisplay Component:
+
+In the src/components directory, create a new file named IPDisplay.js.
+
+Define the IPDisplay component using React JSX. This component will make an HTTP request to the ipify API and display the user's public IP address based on the specified IP version (IPv4 or IPv6).
+
+In IPDisplay.js, you might have something like this:
+
+jsx
+Copy code
+import React, { useState, useEffect } from 'react';
+
+function IPDisplay({ ipVersion }) {
+  const [publicIP, setPublicIP] = useState('');
+
+  useEffect(() => {
+    const apiEndpoint = ipVersion === 'IPv4' ? 'ipv4' : 'ipv6';
+    fetch(`https://api.ipify.org?format=json&${apiEndpoint}=true`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPublicIP(data.ip);
+      });
+  }, [ipVersion]);
+
+  return (
+    <div className="ip-display">
+      <h3>{ipVersion} Address:</h3>
+      <p>{publicIP}</p>
+    </div>
+  );
+}
+
+export default IPDisplay;
+Step 2: Usage in App.js:
+
+Open the src/App.js file and follow these steps:
+
+Import the IPDisplay component at the top of the file:
+
+jsx
+Copy code
+import IPDisplay from './components/IPDisplay';
+Inside the Exhibit components for "Public IP" and "Public IPv6," add instances of the IPDisplay component with the appropriate ipVersion prop:
+
+jsx
+Copy code
+<Exhibit title="Public IP">
+  <IPDisplay ipVersion="IPv4" />
+</Exhibit>
+
+<Exhibit title="Public IPv6">
+  <IPDisplay ipVersion="IPv6" />
+</Exhibit>
+Step 3: Styling and Customization:
+
+You can style the IPDisplay component by adding CSS classes and styles in its respective component file.
+
+Step 4: Testing:
+
+Run your application using npm start to see the changes you've made. You should now see the user's public IPv4 and IPv6 addresses displayed on the page.
+
+Step 5: Commit and Push:
+
+Once you're satisfied with the implementation and testing, commit and push your changes to your GitHub repository.
+
+You've successfully created a component that collects and displays the user's public IP addresses using the ipify API in your Sextant dashboard.
